@@ -8,20 +8,17 @@
 #include "texture.h"
 #include "transform.h"
 #include "camera.h"
+#include "car.h"
 
 #define WIDTH 800
 #define HEIGHT 600
-//#define LOAD_LARGE
+#define LOAD_LARGE
 
 class Scene
 {
 public:
 	Scene() : shader("./res/basicShader"),
 		camera(glm::vec3(0, 0.5f, -3.0f), 70.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 500.0f),
-		carMesh("./res/car.obj"),
-		carTexture("./res/car.bmp"),
-		tireTexture("./res/tire.bmp"),
-		tireMesh("./res/tire.obj"),
 #ifdef LOAD_LARGE
 		parkingLotMesh("./res/ParkingLot.obj"),
 		parkingLotTexture("./res/ParkingLot.bmp"),
@@ -31,8 +28,7 @@ public:
 		xMovement(0),
 		zMovement(0),
 		xRotation(0),
-		yRotation(0),
-		tireRotation(0)
+		yRotation(0)
 	{ }
 	virtual ~Scene()
 	{ }
@@ -89,34 +85,12 @@ public:
 
 	inline void setTireOrientation(float orientation)
 	{
-		tireRotation = orientation;
+		car.setTireOrientation(orientation);
 	}
 
 	inline float getTireOrientation() const
 	{
-		return tireRotation;
-	}
-
-	inline void incrementFrontTireRotation(float amount)
-	{
-		if (amount > 0)
-		{
-			if (frontTireRotation.y + amount <= MAX_FRONT_TIRE_TURNED)
-				frontTireRotation.y += amount;
-			else
-				frontTireRotation.y = MAX_FRONT_TIRE_TURNED;
-		}
-		else if (amount < 0)
-		{
-			if (frontTireRotation.y + amount >= -MAX_FRONT_TIRE_TURNED)
-				frontTireRotation.y += amount;
-			else
-				frontTireRotation.y = -MAX_FRONT_TIRE_TURNED;
-		}
-		else if (frontTireRotation.y + amount == 0)
-		{
-			frontTireRotation.y = 0;
-		}
+		return car.getTireOrientation();
 	}
 private:
 	Shader shader;
@@ -127,36 +101,18 @@ private:
 	float xRotation;
 	float yRotation;
 
-	Mesh tireMesh;
+	Car car;
+
 	Mesh parkingLotMesh;
-	Mesh carMesh;
 	Mesh humanoidMesh;
 
-	Texture tireTexture;
 	Texture parkingLotTexture;
-	Texture carTexture;
 	Texture brickTexture;
-
-	Transform getCarTransform() const;
 
 	Transform getParkingLotTransform() const;
 	const glm::vec3 PARKING_LOT_POSITION = glm::vec3(4.2f, 0, -4.8f);
 	const glm::vec3 PARKING_LOT_ROTATION = glm::vec3(0, (2 * M_PI)/ 3, 0);
 	const glm::vec3 PARKING_LOT_SCALE = glm::vec3(0.8f);
-
-	Transform getTireTransform(const TirePosition& tirePosition) const;
-	inline glm::vec3 getTireRotation(const TirePosition& tirePosition) const;
-	const glm::vec3 TIRE_SCALE = glm::vec3(0.25f);
-	const glm::vec3 LEFT_TIRE_ROTATION = glm::vec3(0, (float)M_PI, 0);
-	const glm::vec3 RIGHT_TIRE_ROTATION = glm::vec3(0.0f);
-	const float FRONT_TIRE_Z = -0.53f;
-	const float BACK_TIRE_Z = 0.47f;
-	const float TIRE_X = 0.35f;
-	const float TIRE_Y = 0.15f;
-	glm::vec3 frontTireRotation;
-	float tireRotation;
-	const float MAX_FRONT_TIRE_TURNED = (11.0f / 60.0f) * (float)M_PI;
-	const glm::vec3 FRONT_TIRE_TURNED = glm::vec3(0, MAX_FRONT_TIRE_TURNED, 0);
 
 	Transform getHumanoidTransform() const;
 	const glm::vec3 HUMANOID_POSITION = glm::vec3(0, 0.67f, 0.05f);

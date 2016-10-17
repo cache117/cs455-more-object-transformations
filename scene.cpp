@@ -6,29 +6,8 @@ void Scene::Render()
 	camera.pitch(xRotation);
 	camera.yaw(yRotation);
 
-	incrementFrontTireRotation(tireRotation);
-
 	shader.Bind();
-
-	carTexture.Bind(0);
-	shader.Update(getCarTransform(), camera);
-	carMesh.Draw();
-
-	tireTexture.Bind(0);
-	shader.Update(getTireTransform(Scene::FRONT_RIGHT), camera);
-	tireMesh.Draw();
-
-	tireTexture.Bind(0);
-	shader.Update(getTireTransform(Scene::FRONT_LEFT), camera);
-	tireMesh.Draw();
-
-	tireTexture.Bind(0);
-	shader.Update(getTireTransform(Scene::BACK_RIGHT), camera);
-	tireMesh.Draw();
-
-	tireTexture.Bind(0);
-	shader.Update(getTireTransform(Scene::BACK_LEFT), camera);
-	tireMesh.Draw();
+	car.Render(shader, camera);
 #ifdef LOAD_LARGE 
 	parkingLotTexture.Bind(0);
 	shader.Update(getParkingLotTransform(), camera);
@@ -40,60 +19,14 @@ void Scene::Render()
 #endif // LOAD_LARGE
 }
 
-Transform Scene::getCarTransform() const
-{
-	return Transform();
-}
-
 Transform Scene::getParkingLotTransform() const
 {
 	return Transform(PARKING_LOT_POSITION, PARKING_LOT_ROTATION, PARKING_LOT_SCALE);
 }
 
-Transform Scene::getTireTransform(const TirePosition& tirePosition) const
-{
-	switch (tirePosition)
-	{
-	case Scene::FRONT_RIGHT:
-		return Transform(glm::vec3(TIRE_X, TIRE_Y, FRONT_TIRE_Z), getTireRotation(Scene::FRONT_RIGHT), TIRE_SCALE);
-		break;
-	case Scene::FRONT_LEFT:
-		return Transform(glm::vec3(-TIRE_X, TIRE_Y, FRONT_TIRE_Z), getTireRotation(Scene::FRONT_LEFT), TIRE_SCALE);
-		break;
-	case Scene::BACK_RIGHT:
-		return Transform(glm::vec3(TIRE_X, TIRE_Y, BACK_TIRE_Z), getTireRotation(Scene::BACK_RIGHT), TIRE_SCALE);
-		break;
-	case Scene::BACK_LEFT:
-		return Transform(glm::vec3(-TIRE_X, TIRE_Y, BACK_TIRE_Z), getTireRotation(Scene::BACK_LEFT), TIRE_SCALE);
-		break;
-	default:
-		return Transform();
-		break;
-	}
-}
-
 Transform Scene::getHumanoidTransform() const
 {
 	return Transform(HUMANOID_POSITION, HUMANOID_ROTATION, HUMANOID_SCALE);
-}
-
-glm::vec3 Scene::getTireRotation(const TirePosition& tirePosition) const
-{
-	switch (tirePosition)
-	{
-	case Scene::FRONT_RIGHT:
-		return RIGHT_TIRE_ROTATION - frontTireRotation;
-		break;
-	case Scene::FRONT_LEFT:
-		return LEFT_TIRE_ROTATION - frontTireRotation;
-		break;
-	case Scene::BACK_LEFT:
-		return LEFT_TIRE_ROTATION;
-		break;
-	default:
-		return RIGHT_TIRE_ROTATION;
-		break;
-	}
 }
 
 

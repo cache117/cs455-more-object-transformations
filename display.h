@@ -28,7 +28,7 @@ private:
 	bool m_isClosed;
 	const float CAMERA_MOVEMENT_AMOUNT = 0.007f;
 	const float CAMERA_ROTATION_AMOUNT = 0.002f;
-	const float TIRE_ROTATION_AMOUNT = 0.001f;
+	const float TIRE_ROTATION_AMOUNT = 0.0015f;
 	const float CAR_MOVEMENT_AMOUNT = 0.006f;
 };
 
