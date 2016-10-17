@@ -45,34 +45,39 @@ void Display::manageKeyPress(Scene& scene, const SDL_Keycode& key)
 	switch (key)
 	{
 	case SDLK_w:
-		scene.setZMovement(MOVEMENT_AMOUNT);
+		scene.setZMovement(CAMERA_MOVEMENT_AMOUNT);
 		break;
 	case SDLK_s:
-		scene.setZMovement(-MOVEMENT_AMOUNT);
+		scene.setZMovement(-CAMERA_MOVEMENT_AMOUNT);
 		break;
 	case SDLK_d:
-		scene.setXMovement(-MOVEMENT_AMOUNT);
+		scene.setXMovement(-CAMERA_MOVEMENT_AMOUNT);
 		break;
 	case SDLK_a:
-		scene.setXMovement(MOVEMENT_AMOUNT);
+		scene.setXMovement(CAMERA_MOVEMENT_AMOUNT);
 		break;
 	case SDLK_i:
-		scene.setXRotation(ROTATION_AMOUNT);
+		scene.setXRotation(CAMERA_ROTATION_AMOUNT);
 		break;
 	case SDLK_k:
-		scene.setXRotation(-ROTATION_AMOUNT);
+		scene.setXRotation(-CAMERA_ROTATION_AMOUNT);
 		break;
 	case SDLK_l:
-		scene.setYRotation(-ROTATION_AMOUNT);
+		scene.setYRotation(-CAMERA_ROTATION_AMOUNT);
 		break;
 	case SDLK_j:
-		scene.setYRotation(ROTATION_AMOUNT);
+		scene.setYRotation(CAMERA_ROTATION_AMOUNT);
 		break;
-	case SDLK_q:
-		scene.setTireOrientation(Scene::TURNED_LEFT);
+	case SDLK_LEFT:
+		scene.setTireOrientation(-TIRE_ROTATION_AMOUNT);
 		break;
-	case SDLK_e:
-		scene.setTireOrientation(Scene::TURNED_RIGHT);
+	case SDLK_RIGHT:
+		scene.setTireOrientation(TIRE_ROTATION_AMOUNT);
+		break;
+	case SDLK_UP:
+		break;
+	case SDLK_DOWN:
+		break;
 	}
 }
 
@@ -81,43 +86,48 @@ void Display::manageKeyRelease(Scene& scene, const SDL_Keycode& key)
 	switch (key)
 	{
 	case SDLK_w:
-		if (scene.getZMovement() == MOVEMENT_AMOUNT)
+		if (scene.getZMovement() == CAMERA_MOVEMENT_AMOUNT)
 			scene.setZMovement(0);
 		break;
 	case SDLK_s:
-		if (scene.getZMovement() == -MOVEMENT_AMOUNT)
+		if (scene.getZMovement() == -CAMERA_MOVEMENT_AMOUNT)
 			scene.setZMovement(0);
 		break;
 	case SDLK_d:
-		if (scene.getXMovement() == -MOVEMENT_AMOUNT)
+		if (scene.getXMovement() == -CAMERA_MOVEMENT_AMOUNT)
 			scene.setXMovement(0);
 	case SDLK_a:
-		if (scene.getXMovement() == MOVEMENT_AMOUNT)
+		if (scene.getXMovement() == CAMERA_MOVEMENT_AMOUNT)
 			scene.setXMovement(0);
 		break;
 	case SDLK_i:
-		if (scene.getXRotation() == ROTATION_AMOUNT)
+		if (scene.getXRotation() == CAMERA_ROTATION_AMOUNT)
 			scene.setXRotation(0);
 		break;
 	case SDLK_k:
-		if (scene.getXRotation() == -ROTATION_AMOUNT)
+		if (scene.getXRotation() == -CAMERA_ROTATION_AMOUNT)
 			scene.setXRotation(0);
 		break;
 	case SDLK_l:
-		if (scene.getYRotation() == -ROTATION_AMOUNT)
+		if (scene.getYRotation() == -CAMERA_ROTATION_AMOUNT)
 			scene.setYRotation(0);
 		break;
 	case SDLK_j:
-		if (scene.getYRotation() == ROTATION_AMOUNT)
+		if (scene.getYRotation() == CAMERA_ROTATION_AMOUNT)
 			scene.setYRotation(0);
 		break;
-	case SDLK_q:
-		if (scene.getTireOrientation() == Scene::TURNED_LEFT)
-			scene.setTireOrientation(Scene::FORWARD);
+	case SDLK_LEFT:
+		if (scene.getTireOrientation() == -TIRE_ROTATION_AMOUNT)
+			scene.setTireOrientation(0);
 		break;
-	case SDLK_e:
-		if (scene.getTireOrientation() == Scene::TURNED_RIGHT)
-			scene.setTireOrientation(Scene::FORWARD);
+	case SDLK_RIGHT:
+		if (scene.getTireOrientation() == TIRE_ROTATION_AMOUNT)
+			scene.setTireOrientation(0);
+		break;
+	case SDLK_UP:
+		break;
+	case SDLK_DOWN:
+		break;
 	}
 }
 

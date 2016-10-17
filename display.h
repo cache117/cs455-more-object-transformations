@@ -26,7 +26,9 @@ private:
 	SDL_Window* m_window;
 	SDL_GLContext m_glContext;
 	bool m_isClosed;
-	const float MOVEMENT_AMOUNT = 0.007f;
-	const float ROTATION_AMOUNT = 0.002f;
+	const float CAMERA_MOVEMENT_AMOUNT = 0.007f;
+	const float CAMERA_ROTATION_AMOUNT = 0.002f;
+	const float TIRE_ROTATION_AMOUNT = 0.001f;
+	const float CAR_MOVEMENT_AMOUNT = 0.006f;
 };
 

@@ -5,6 +5,9 @@ void Scene::Render()
 	camera.moveCamera(xMovement, zMovement);
 	camera.pitch(xRotation);
 	camera.yaw(yRotation);
+
+	incrementFrontTireRotation(tireRotation);
+
 	shader.Bind();
 
 	carTexture.Bind(0);
@@ -79,32 +82,10 @@ glm::vec3 Scene::getTireRotation(const TirePosition& tirePosition) const
 	switch (tirePosition)
 	{
 	case Scene::FRONT_RIGHT:
-		switch (tireOrientation)
-		{
-		case Scene::TURNED_RIGHT:
-			return RIGHT_TIRE_ROTATION - FRONT_TIRE_TURNED;
-			break;
-		case Scene::TURNED_LEFT:
-			return RIGHT_TIRE_ROTATION + FRONT_TIRE_TURNED;
-			break;
-		default:
-			return RIGHT_TIRE_ROTATION;
-			break;
-		}
+		return RIGHT_TIRE_ROTATION - frontTireRotation;
 		break;
 	case Scene::FRONT_LEFT:
-		switch (tireOrientation)
-		{
-		case Scene::TURNED_RIGHT:
-			return LEFT_TIRE_ROTATION - FRONT_TIRE_TURNED;
-			break;
-		case Scene::TURNED_LEFT:
-			return LEFT_TIRE_ROTATION + FRONT_TIRE_TURNED;
-			break;
-		default:
-			return LEFT_TIRE_ROTATION;
-			break;
-		}
+		return LEFT_TIRE_ROTATION - frontTireRotation;
 		break;
 	case Scene::BACK_LEFT:
 		return LEFT_TIRE_ROTATION;

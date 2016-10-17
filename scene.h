@@ -11,7 +11,7 @@
 
 #define WIDTH 800
 #define HEIGHT 600
-#define LOAD_LARGE
+//#define LOAD_LARGE
 
 class Scene
 {
@@ -32,7 +32,7 @@ public:
 		zMovement(0),
 		xRotation(0),
 		yRotation(0),
-		tireOrientation(FORWARD)
+		tireRotation(0)
 	{ }
 	virtual ~Scene()
 	{ }
@@ -45,13 +45,6 @@ public:
 		FRONT_LEFT,
 		BACK_RIGHT,
 		BACK_LEFT
-	};
-
-	enum TireOrientation
-	{
-		TURNED_RIGHT,
-		TURNED_LEFT,
-		FORWARD
 	};
 	
 	inline void setXMovement(float movement)
@@ -94,14 +87,36 @@ public:
 		return yRotation;
 	}
 
-	inline void setTireOrientation(const TireOrientation& orientation)
+	inline void setTireOrientation(float orientation)
 	{
-		tireOrientation = orientation;
+		tireRotation = orientation;
 	}
 
-	inline TireOrientation getTireOrientation() const
+	inline float getTireOrientation() const
 	{
-		return tireOrientation;
+		return tireRotation;
+	}
+
+	inline void incrementFrontTireRotation(float amount)
+	{
+		if (amount > 0)
+		{
+			if (frontTireRotation.y + amount <= MAX_FRONT_TIRE_TURNED)
+				frontTireRotation.y += amount;
+			else
+				frontTireRotation.y = MAX_FRONT_TIRE_TURNED;
+		}
+		else if (amount < 0)
+		{
+			if (frontTireRotation.y + amount >= -MAX_FRONT_TIRE_TURNED)
+				frontTireRotation.y += amount;
+			else
+				frontTireRotation.y = -MAX_FRONT_TIRE_TURNED;
+		}
+		else if (frontTireRotation.y + amount == 0)
+		{
+			frontTireRotation.y = 0;
+		}
 	}
 private:
 	Shader shader;
@@ -138,8 +153,10 @@ private:
 	const float BACK_TIRE_Z = 0.47f;
 	const float TIRE_X = 0.35f;
 	const float TIRE_Y = 0.15f;
-	TireOrientation tireOrientation;
-	const glm::vec3 FRONT_TIRE_TURNED = glm::vec3(0, 0.75f, 0);
+	glm::vec3 frontTireRotation;
+	float tireRotation;
+	const float MAX_FRONT_TIRE_TURNED = (11.0f / 60.0f) * (float)M_PI;
+	const glm::vec3 FRONT_TIRE_TURNED = glm::vec3(0, MAX_FRONT_TIRE_TURNED, 0);
 
 	Transform getHumanoidTransform() const;
 	const glm::vec3 HUMANOID_POSITION = glm::vec3(0, 0.67f, 0.05f);
