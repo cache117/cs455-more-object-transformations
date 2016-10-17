@@ -12,7 +12,7 @@
 
 #define WIDTH 800
 #define HEIGHT 600
-#define LOAD_LARGE
+//#define LOAD_LARGE
 
 class Scene
 {
@@ -80,6 +80,16 @@ public:
 	inline float getTireRotationSpeed() const
 	{
 		return car.getTireRotationSpeed();
+	}
+
+	inline void setCarForwardSpeed(float speed)
+	{
+		car.setCarForwardSpeed(speed);
+	}
+
+	inline float getCarForwardSpeed()
+	{
+		return car.getCarForwardSpeed();
 	}
 private:
 	Shader shader;

@@ -45,38 +45,40 @@ void Display::manageKeyPress(Scene& scene, const SDL_Keycode& key)
 	switch (key)
 	{
 	case SDLK_w:
-		scene.setZMovementSpeed(CAMERA_MOVEMENT_AMOUNT);
+		scene.setZMovementSpeed(CAMERA_MOVEMENT_SPEED);
 		break;
 	case SDLK_s:
-		scene.setZMovementSpeed(-CAMERA_MOVEMENT_AMOUNT);
+		scene.setZMovementSpeed(-CAMERA_MOVEMENT_SPEED);
 		break;
 	case SDLK_d:
-		scene.setXMovementSpeed(-CAMERA_MOVEMENT_AMOUNT);
+		scene.setXMovementSpeed(-CAMERA_MOVEMENT_SPEED);
 		break;
 	case SDLK_a:
-		scene.setXMovementSpeed(CAMERA_MOVEMENT_AMOUNT);
+		scene.setXMovementSpeed(CAMERA_MOVEMENT_SPEED);
 		break;
 	case SDLK_i:
-		scene.setXRotationSpeed(CAMERA_ROTATION_AMOUNT);
+		scene.setXRotationSpeed(CAMERA_ROTATION_SPEED);
 		break;
 	case SDLK_k:
-		scene.setXRotationSpeed(-CAMERA_ROTATION_AMOUNT);
+		scene.setXRotationSpeed(-CAMERA_ROTATION_SPEED);
 		break;
 	case SDLK_l:
-		scene.setYRotationSpeed(-CAMERA_ROTATION_AMOUNT);
+		scene.setYRotationSpeed(-CAMERA_ROTATION_SPEED);
 		break;
 	case SDLK_j:
-		scene.setYRotationSpeed(CAMERA_ROTATION_AMOUNT);
+		scene.setYRotationSpeed(CAMERA_ROTATION_SPEED);
 		break;
 	case SDLK_LEFT:
-		scene.setTireRotationSpeed(-TIRE_ROTATION_AMOUNT);
+		scene.setTireRotationSpeed(-TIRE_ROTATION_SPEED);
 		break;
 	case SDLK_RIGHT:
-		scene.setTireRotationSpeed(TIRE_ROTATION_AMOUNT);
+		scene.setTireRotationSpeed(TIRE_ROTATION_SPEED);
 		break;
 	case SDLK_UP:
+		scene.setCarForwardSpeed(CAR_MOVEMENT_SPEED);
 		break;
 	case SDLK_DOWN:
+		scene.setCarForwardSpeed(-CAR_MOVEMENT_SPEED);
 		break;
 	}
 }
@@ -86,47 +88,51 @@ void Display::manageKeyRelease(Scene& scene, const SDL_Keycode& key)
 	switch (key)
 	{
 	case SDLK_w:
-		if (scene.getZMovementSpeed() == CAMERA_MOVEMENT_AMOUNT)
+		if (scene.getZMovementSpeed() == CAMERA_MOVEMENT_SPEED)
 			scene.setZMovementSpeed(0);
 		break;
 	case SDLK_s:
-		if (scene.getZMovementSpeed() == -CAMERA_MOVEMENT_AMOUNT)
+		if (scene.getZMovementSpeed() == -CAMERA_MOVEMENT_SPEED)
 			scene.setZMovementSpeed(0);
 		break;
 	case SDLK_d:
-		if (scene.getXMovementSpeed() == -CAMERA_MOVEMENT_AMOUNT)
+		if (scene.getXMovementSpeed() == -CAMERA_MOVEMENT_SPEED)
 			scene.setXMovementSpeed(0);
 	case SDLK_a:
-		if (scene.getXMovementSpeed() == CAMERA_MOVEMENT_AMOUNT)
+		if (scene.getXMovementSpeed() == CAMERA_MOVEMENT_SPEED)
 			scene.setXMovementSpeed(0);
 		break;
 	case SDLK_i:
-		if (scene.getXRotationSpeed() == CAMERA_ROTATION_AMOUNT)
+		if (scene.getXRotationSpeed() == CAMERA_ROTATION_SPEED)
 			scene.setXRotationSpeed(0);
 		break;
 	case SDLK_k:
-		if (scene.getXRotationSpeed() == -CAMERA_ROTATION_AMOUNT)
+		if (scene.getXRotationSpeed() == -CAMERA_ROTATION_SPEED)
 			scene.setXRotationSpeed(0);
 		break;
 	case SDLK_l:
-		if (scene.getYRotationSpeed() == -CAMERA_ROTATION_AMOUNT)
+		if (scene.getYRotationSpeed() == -CAMERA_ROTATION_SPEED)
 			scene.setYRotationSpeed(0);
 		break;
 	case SDLK_j:
-		if (scene.getYRotationSpeed() == CAMERA_ROTATION_AMOUNT)
+		if (scene.getYRotationSpeed() == CAMERA_ROTATION_SPEED)
 			scene.setYRotationSpeed(0);
 		break;
 	case SDLK_LEFT:
-		if (scene.getTireRotationSpeed() == -TIRE_ROTATION_AMOUNT)
+		if (scene.getTireRotationSpeed() == -TIRE_ROTATION_SPEED)
 			scene.setTireRotationSpeed(0);
 		break;
 	case SDLK_RIGHT:
-		if (scene.getTireRotationSpeed() == TIRE_ROTATION_AMOUNT)
+		if (scene.getTireRotationSpeed() == TIRE_ROTATION_SPEED)
 			scene.setTireRotationSpeed(0);
 		break;
 	case SDLK_UP:
+		if (scene.getCarForwardSpeed() == CAR_MOVEMENT_SPEED)
+			scene.setCarForwardSpeed(0);
 		break;
 	case SDLK_DOWN:
+		if (scene.getCarForwardSpeed() == -CAR_MOVEMENT_SPEED)
+			scene.setCarForwardSpeed(0);
 		break;
 	}
 }

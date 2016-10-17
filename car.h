@@ -18,7 +18,8 @@ public:
 		chasisTexture("./res/car.bmp"),
 		tireTexture("./res/tire.bmp"),
 		tireMesh("./res/tire.obj"),
-		tireRotation(0)
+		tireRotation(0),
+		carForwardSpeed(0)
 	{ }
 	virtual ~Car()
 	{ }
@@ -34,6 +35,16 @@ public:
 	{
 		return tireRotation;
 	}
+
+	inline void setCarForwardSpeed(float speed)
+	{
+		carForwardSpeed = speed;
+	}
+
+	inline float getCarForwardSpeed()
+	{
+		return carForwardSpeed;
+	}
 private:
 	void incrementFrontTireRotation(float amount);
 
@@ -48,6 +59,7 @@ private:
 	Mesh chasisMesh;
 	Texture chasisTexture;
 	Transform getChasisTransform() const;
+	float carForwardSpeed;
 
 	Mesh tireMesh;
 	Texture tireTexture;
