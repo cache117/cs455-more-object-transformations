@@ -1,6 +1,6 @@
 #include "camera.h"
 
-Camera::Camera(const glm::vec3 & pos, float fov, float aspect, float zNear, float zFar)
+Camera::Camera(const glm::vec3 & pos, float fov, float aspect, float zNear, float zFar) : Camera()
 {
 	this->perspective = buildPerspectiveMatrix(fov, aspect, zNear, zFar);
 	this->position = pos;
@@ -111,4 +111,11 @@ glm::mat4 Camera::buildPerspectiveMatrix(float fov, float aspect, float zNear, f
 	perspectiveProjection[3][2] = (2 * zNear * zFar) / (zNear - zFar);
 	return perspectiveProjection;
 #endif // !USE_CUSTOM_CAMERA_MATRICES
+}
+
+void Camera::applyMovements()
+{
+	moveCamera(xMovementSpeed, zMovementSpeed);
+	pitch(xRotationSpeed);
+	yaw(yRotationSpeed);
 }

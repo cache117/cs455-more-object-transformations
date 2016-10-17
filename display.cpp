@@ -45,34 +45,34 @@ void Display::manageKeyPress(Scene& scene, const SDL_Keycode& key)
 	switch (key)
 	{
 	case SDLK_w:
-		scene.setZMovement(CAMERA_MOVEMENT_AMOUNT);
+		scene.setZMovementSpeed(CAMERA_MOVEMENT_AMOUNT);
 		break;
 	case SDLK_s:
-		scene.setZMovement(-CAMERA_MOVEMENT_AMOUNT);
+		scene.setZMovementSpeed(-CAMERA_MOVEMENT_AMOUNT);
 		break;
 	case SDLK_d:
-		scene.setXMovement(-CAMERA_MOVEMENT_AMOUNT);
+		scene.setXMovementSpeed(-CAMERA_MOVEMENT_AMOUNT);
 		break;
 	case SDLK_a:
-		scene.setXMovement(CAMERA_MOVEMENT_AMOUNT);
+		scene.setXMovementSpeed(CAMERA_MOVEMENT_AMOUNT);
 		break;
 	case SDLK_i:
-		scene.setXRotation(CAMERA_ROTATION_AMOUNT);
+		scene.setXRotationSpeed(CAMERA_ROTATION_AMOUNT);
 		break;
 	case SDLK_k:
-		scene.setXRotation(-CAMERA_ROTATION_AMOUNT);
+		scene.setXRotationSpeed(-CAMERA_ROTATION_AMOUNT);
 		break;
 	case SDLK_l:
-		scene.setYRotation(-CAMERA_ROTATION_AMOUNT);
+		scene.setYRotationSpeed(-CAMERA_ROTATION_AMOUNT);
 		break;
 	case SDLK_j:
-		scene.setYRotation(CAMERA_ROTATION_AMOUNT);
+		scene.setYRotationSpeed(CAMERA_ROTATION_AMOUNT);
 		break;
 	case SDLK_LEFT:
-		scene.setTireOrientation(-TIRE_ROTATION_AMOUNT);
+		scene.setTireRotationSpeed(-TIRE_ROTATION_AMOUNT);
 		break;
 	case SDLK_RIGHT:
-		scene.setTireOrientation(TIRE_ROTATION_AMOUNT);
+		scene.setTireRotationSpeed(TIRE_ROTATION_AMOUNT);
 		break;
 	case SDLK_UP:
 		break;
@@ -86,43 +86,43 @@ void Display::manageKeyRelease(Scene& scene, const SDL_Keycode& key)
 	switch (key)
 	{
 	case SDLK_w:
-		if (scene.getZMovement() == CAMERA_MOVEMENT_AMOUNT)
-			scene.setZMovement(0);
+		if (scene.getZMovementSpeed() == CAMERA_MOVEMENT_AMOUNT)
+			scene.setZMovementSpeed(0);
 		break;
 	case SDLK_s:
-		if (scene.getZMovement() == -CAMERA_MOVEMENT_AMOUNT)
-			scene.setZMovement(0);
+		if (scene.getZMovementSpeed() == -CAMERA_MOVEMENT_AMOUNT)
+			scene.setZMovementSpeed(0);
 		break;
 	case SDLK_d:
-		if (scene.getXMovement() == -CAMERA_MOVEMENT_AMOUNT)
-			scene.setXMovement(0);
+		if (scene.getXMovementSpeed() == -CAMERA_MOVEMENT_AMOUNT)
+			scene.setXMovementSpeed(0);
 	case SDLK_a:
-		if (scene.getXMovement() == CAMERA_MOVEMENT_AMOUNT)
-			scene.setXMovement(0);
+		if (scene.getXMovementSpeed() == CAMERA_MOVEMENT_AMOUNT)
+			scene.setXMovementSpeed(0);
 		break;
 	case SDLK_i:
-		if (scene.getXRotation() == CAMERA_ROTATION_AMOUNT)
-			scene.setXRotation(0);
+		if (scene.getXRotationSpeed() == CAMERA_ROTATION_AMOUNT)
+			scene.setXRotationSpeed(0);
 		break;
 	case SDLK_k:
-		if (scene.getXRotation() == -CAMERA_ROTATION_AMOUNT)
-			scene.setXRotation(0);
+		if (scene.getXRotationSpeed() == -CAMERA_ROTATION_AMOUNT)
+			scene.setXRotationSpeed(0);
 		break;
 	case SDLK_l:
-		if (scene.getYRotation() == -CAMERA_ROTATION_AMOUNT)
-			scene.setYRotation(0);
+		if (scene.getYRotationSpeed() == -CAMERA_ROTATION_AMOUNT)
+			scene.setYRotationSpeed(0);
 		break;
 	case SDLK_j:
-		if (scene.getYRotation() == CAMERA_ROTATION_AMOUNT)
-			scene.setYRotation(0);
+		if (scene.getYRotationSpeed() == CAMERA_ROTATION_AMOUNT)
+			scene.setYRotationSpeed(0);
 		break;
 	case SDLK_LEFT:
-		if (scene.getTireOrientation() == -TIRE_ROTATION_AMOUNT)
-			scene.setTireOrientation(0);
+		if (scene.getTireRotationSpeed() == -TIRE_ROTATION_AMOUNT)
+			scene.setTireRotationSpeed(0);
 		break;
 	case SDLK_RIGHT:
-		if (scene.getTireOrientation() == TIRE_ROTATION_AMOUNT)
-			scene.setTireOrientation(0);
+		if (scene.getTireRotationSpeed() == TIRE_ROTATION_AMOUNT)
+			scene.setTireRotationSpeed(0);
 		break;
 	case SDLK_UP:
 		break;

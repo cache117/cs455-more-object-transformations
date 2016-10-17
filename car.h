@@ -22,39 +22,20 @@ public:
 	{ }
 	virtual ~Car()
 	{ }
+
 	void Render(Shader & shader, Camera & camera);
 
-	inline void setTireOrientation(float orientation)
+	inline void setTireRotationSpeed(float orientation)
 	{
 		tireRotation = orientation;
 	}
 
-	inline float getTireOrientation() const
+	inline float getTireRotationSpeed() const
 	{
 		return tireRotation;
 	}
-
-	inline void incrementFrontTireRotation(float amount)
-	{
-		if (amount > 0)
-		{
-			if (frontTireRotation.y + amount <= MAX_FRONT_TIRE_TURNED)
-				frontTireRotation.y += amount;
-			else
-				frontTireRotation.y = MAX_FRONT_TIRE_TURNED;
-		}
-		else if (amount < 0)
-		{
-			if (frontTireRotation.y + amount >= -MAX_FRONT_TIRE_TURNED)
-				frontTireRotation.y += amount;
-			else
-				frontTireRotation.y = -MAX_FRONT_TIRE_TURNED;
-		}
-		else if (frontTireRotation.y + amount == 0)
-		{
-			frontTireRotation.y = 0;
-		}
-	}
+private:
+	void incrementFrontTireRotation(float amount);
 
 	enum TirePosition
 	{
@@ -83,6 +64,5 @@ public:
 	glm::vec3 frontTireRotation;
 	float tireRotation;
 	const float MAX_FRONT_TIRE_TURNED = (11.0f / 60.0f) * (float)M_PI;
-	const glm::vec3 FRONT_TIRE_TURNED = glm::vec3(0, MAX_FRONT_TIRE_TURNED, 0);
 };
 

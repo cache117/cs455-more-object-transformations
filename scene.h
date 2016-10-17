@@ -18,102 +18,84 @@ class Scene
 {
 public:
 	Scene() : shader("./res/basicShader"),
-		camera(glm::vec3(0, 0.5f, -3.0f), 70.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 500.0f),
+		camera(glm::vec3(0, 0.5f, -3.0f), 70.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 500.0f)
 #ifdef LOAD_LARGE
+		,
 		parkingLotMesh("./res/ParkingLot.obj"),
 		parkingLotTexture("./res/ParkingLot.bmp"),
 		humanoidMesh("./res/monster.obj"),
-		brickTexture("./res/bricks.jpg"),
+		brickTexture("./res/bricks.jpg")
 #endif // LOAD_LARGE
-		xMovement(0),
-		zMovement(0),
-		xRotation(0),
-		yRotation(0)
 	{ }
 	virtual ~Scene()
 	{ }
 
 	void Render();
-
-	enum TirePosition
-	{
-		FRONT_RIGHT,
-		FRONT_LEFT,
-		BACK_RIGHT,
-		BACK_LEFT
-	};
 	
-	inline void setXMovement(float movement)
+	inline void setXMovementSpeed(float movement)
 	{
-		xMovement = movement;
+		camera.setXMovementSpeed(movement);
 	}
 
-	inline float getXMovement() const
+	inline float getXMovementSpeed() const
 	{
-		return xMovement;
+		return camera.getXMovementSpeed();
 	}
 
-	inline void setZMovement(float movement)
+	inline void setZMovementSpeed(float movement)
 	{
-		zMovement = movement;
+		camera.setZMovementSpeed(movement);
 	}
 
-	inline float getZMovement() const
+	inline float getZMovementSpeed() const
 	{
-		return zMovement;
+		return camera.getZMovementSpeed();
 	}
 
-	inline void setXRotation(float rotation)
+	inline void setXRotationSpeed(float rotation)
 	{
-		xRotation = rotation;
+		camera.setXRotationSpeed(rotation);
 	}
 
-	inline float getXRotation() const
+	inline float getXRotationSpeed() const
 	{
-		return xRotation;
+		return camera.getXRotationSpeed();
 	}
 
-	inline void setYRotation(float rotation)
+	inline void setYRotationSpeed(float rotation)
 	{
-		yRotation = rotation;
+		camera.setYRotationSpeed(rotation);
 	}
 
-	inline float getYRotation() const
+	inline float getYRotationSpeed() const
 	{
-		return yRotation;
+		return camera.getYRotationSpeed();
 	}
 
-	inline void setTireOrientation(float orientation)
+	inline void setTireRotationSpeed(float orientation)
 	{
-		car.setTireOrientation(orientation);
+		car.setTireRotationSpeed(orientation);
 	}
 
-	inline float getTireOrientation() const
+	inline float getTireRotationSpeed() const
 	{
-		return car.getTireOrientation();
+		return car.getTireRotationSpeed();
 	}
 private:
 	Shader shader;
-
 	Camera camera;
-	float xMovement;
-	float zMovement;
-	float xRotation;
-	float yRotation;
 
 	Car car;
 
 	Mesh parkingLotMesh;
-	Mesh humanoidMesh;
-
 	Texture parkingLotTexture;
-	Texture brickTexture;
-
 	Transform getParkingLotTransform() const;
 	const glm::vec3 PARKING_LOT_POSITION = glm::vec3(4.2f, 0, -4.8f);
-	const glm::vec3 PARKING_LOT_ROTATION = glm::vec3(0, (2 * M_PI)/ 3, 0);
+	const glm::vec3 PARKING_LOT_ROTATION = glm::vec3(0, (2 * M_PI) / 3, 0);
 	const glm::vec3 PARKING_LOT_SCALE = glm::vec3(0.8f);
 
+	Texture brickTexture;
+	Mesh humanoidMesh;
 	Transform getHumanoidTransform() const;
 	const glm::vec3 HUMANOID_POSITION = glm::vec3(0, 0.67f, 0.05f);
 	const glm::vec3 HUMANOID_ROTATION = glm::vec3(0, M_PI, 0);

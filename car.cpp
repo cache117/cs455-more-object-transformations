@@ -2,7 +2,7 @@
 
 void Car::Render(Shader & shader, Camera & camera)
 {
-	incrementFrontTireRotation(getTireOrientation());
+	incrementFrontTireRotation(getTireRotationSpeed());
 
 	chasisTexture.Bind(0);
 	shader.Update(getChasisTransform(), camera);
@@ -23,6 +23,28 @@ void Car::Render(Shader & shader, Camera & camera)
 	tireTexture.Bind(0);
 	shader.Update(getTireTransform(Car::BACK_LEFT), camera);
 	tireMesh.Draw();
+}
+
+void Car::incrementFrontTireRotation(float amount)
+{
+	if (amount > 0)
+	{
+		if (frontTireRotation.y + amount <= MAX_FRONT_TIRE_TURNED)
+			frontTireRotation.y += amount;
+		else
+			frontTireRotation.y = MAX_FRONT_TIRE_TURNED;
+	}
+	else if (amount < 0)
+	{
+		if (frontTireRotation.y + amount >= -MAX_FRONT_TIRE_TURNED)
+			frontTireRotation.y += amount;
+		else
+			frontTireRotation.y = -MAX_FRONT_TIRE_TURNED;
+	}
+	else if (frontTireRotation.y + amount == 0)
+	{
+		frontTireRotation.y = 0;
+	}
 }
 
 Transform Car::getChasisTransform() const

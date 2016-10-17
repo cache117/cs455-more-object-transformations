@@ -2,9 +2,7 @@
 
 void Scene::Render()
 {
-	camera.moveCamera(xMovement, zMovement);
-	camera.pitch(xRotation);
-	camera.yaw(yRotation);
+	camera.applyMovements();
 
 	shader.Bind();
 	car.Render(shader, camera);
