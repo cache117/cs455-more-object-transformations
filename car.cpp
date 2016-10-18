@@ -3,6 +3,7 @@
 void Car::Render(Shader & shader, Camera & camera)
 {
 	incrementFrontTireRotation(getTireRotationSpeed());
+	move();
 
 	chasisTexture.Bind(0);
 	shader.Update(getChasisTransform(), camera);
@@ -41,15 +42,15 @@ void Car::incrementFrontTireRotation(float amount)
 		else
 			frontTireRotation.y = -MAX_FRONT_TIRE_TURNED;
 	}
-	else if (frontTireRotation.y + amount == 0)
-	{
-		frontTireRotation.y = 0;
-	}
+	if (carForwardSpeed != 0)
+		carRotation += glm::vec3(0, -amount, 0);
+	else
+		carRotation += glm::vec3(0, -amount / 2.0f, 0);
 }
 
 Transform Car::getChasisTransform() const
 {
-	return Transform();
+	return Transform(position, carRotation);
 }
 
 Transform Car::getTireTransform(const TirePosition & tirePosition) const
@@ -97,4 +98,10 @@ inline glm::vec3 Car::getTireRotation(const TirePosition & tirePosition) const
 		return glm::vec3();
 		break;
 	}
+}
+
+void Car::move()
+{
+	forward = glm::vec3(glm::rotate(-tireRotation, glm::vec3(0, 1.0f, 0)) * glm::vec4(forward, 1.0f));
+	position += forward * carForwardSpeed;
 }

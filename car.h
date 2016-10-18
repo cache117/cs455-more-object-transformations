@@ -19,7 +19,8 @@ public:
 		tireTexture("./res/tire.bmp"),
 		tireMesh("./res/tire.obj"),
 		tireRotation(0),
-		carForwardSpeed(0)
+		carForwardSpeed(0),
+		forward(0.0f, 0.0f, -1.0f)
 	{ }
 	virtual ~Car()
 	{ }
@@ -47,6 +48,7 @@ public:
 	}
 private:
 	void incrementFrontTireRotation(float amount);
+	void move();
 
 	enum TirePosition
 	{
@@ -60,6 +62,9 @@ private:
 	Texture chasisTexture;
 	Transform getChasisTransform() const;
 	float carForwardSpeed;
+	glm::vec3 forward;
+	glm::vec3 position;
+	glm::vec3 carRotation;
 
 	Mesh tireMesh;
 	Texture tireTexture;
