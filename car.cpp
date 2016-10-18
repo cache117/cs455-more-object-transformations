@@ -44,8 +44,6 @@ void Car::incrementFrontTireRotation(float amount)
 	}
 	if (carForwardSpeed != 0)
 		carRotation += glm::vec3(0, -amount, 0);
-	else
-		carRotation += glm::vec3(0, -amount / 2.0f, 0);
 }
 
 Transform Car::getChasisTransform() const
