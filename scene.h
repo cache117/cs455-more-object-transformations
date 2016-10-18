@@ -12,7 +12,7 @@
 
 #define WIDTH 800
 #define HEIGHT 600
-//#define LOAD_LARGE
+#define LOAD_LARGE
 
 class Scene
 {

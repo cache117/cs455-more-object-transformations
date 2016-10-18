@@ -54,24 +54,27 @@ Transform Car::getChasisTransform() const
 
 Transform Car::getTireTransform(const TirePosition & tirePosition) const
 {
+	Transform tireTransform;
 	switch (tirePosition)
 	{
 	case Car::FRONT_RIGHT:
-		return Transform(glm::vec3(TIRE_X, TIRE_Y, FRONT_TIRE_Z), getTireRotation(Car::FRONT_RIGHT), TIRE_SCALE);
+		tireTransform = Transform(glm::vec3(TIRE_X, TIRE_Y, FRONT_TIRE_Z), getTireRotation(Car::FRONT_RIGHT), TIRE_SCALE);
 		break;
 	case Car::FRONT_LEFT:
-		return Transform(glm::vec3(-TIRE_X, TIRE_Y, FRONT_TIRE_Z), getTireRotation(Car::FRONT_LEFT), TIRE_SCALE);
+		tireTransform = Transform(glm::vec3(-TIRE_X, TIRE_Y, FRONT_TIRE_Z), getTireRotation(Car::FRONT_LEFT), TIRE_SCALE);
 		break;
 	case Car::BACK_RIGHT:
-		return Transform(glm::vec3(TIRE_X, TIRE_Y, BACK_TIRE_Z), getTireRotation(Car::BACK_RIGHT), TIRE_SCALE);
+		tireTransform = Transform(glm::vec3(TIRE_X, TIRE_Y, BACK_TIRE_Z), getTireRotation(Car::BACK_RIGHT), TIRE_SCALE);
 		break;
 	case Car::BACK_LEFT:
-		return Transform(glm::vec3(-TIRE_X, TIRE_Y, BACK_TIRE_Z), getTireRotation(Car::BACK_LEFT), TIRE_SCALE);
+		tireTransform = Transform(glm::vec3(-TIRE_X, TIRE_Y, BACK_TIRE_Z), getTireRotation(Car::BACK_LEFT), TIRE_SCALE);
 		break;
 	default:
-		return Transform();
+		tireTransform = Transform();
 		break;
 	}
+	return Transform::computeMatrixMultiplication(getChasisTransform(), tireTransform);
+	//return tireTransform;
 }
 
 inline glm::vec3 Car::getTireRotation(const TirePosition & tirePosition) const

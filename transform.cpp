@@ -39,5 +39,10 @@ glm::mat4 Transform::GetModel() const
 #endif // !USE_CUSTOM_OBJECT_MATRICES
 
 	glm::mat4 rotMatrix = rotZMatrix * rotYMatrix * rotXMatrix;
-	return posMatrix * rotMatrix * scaleMatrix;
+	return startingModel * posMatrix * rotMatrix * scaleMatrix;
+}
+
+Transform Transform::computeMatrixMultiplication(const Transform & left, const Transform & right)
+{
+	return Transform(left.GetModel() * right.GetModel());
 }
