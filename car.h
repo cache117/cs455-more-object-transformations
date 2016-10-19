@@ -11,6 +11,8 @@
 #define M_PI 3.14159
 #endif
 
+//#define USE_SLOW_ROTATING_TIRES
+
 class Car
 {
 public:

@@ -30,20 +30,30 @@ void Car::incrementFrontTireRotation(float amount)
 {
 	if (amount > 0)
 	{
+#ifdef USE_SLOW_ROTATING_TIRES 
 		if (frontTireRotation.y + amount <= MAX_FRONT_TIRE_TURNED)
 			frontTireRotation.y += amount;
 		else
 			frontTireRotation.y = MAX_FRONT_TIRE_TURNED;
+#else
+		frontTireRotation.y = MAX_FRONT_TIRE_TURNED;
+#endif // USE_SLOW_ROTATING_TIRES
 	}
 	else if (amount < 0)
 	{
+#ifdef USE_SLOW_ROTATING_TIRES 
 		if (frontTireRotation.y + amount >= -MAX_FRONT_TIRE_TURNED)
 			frontTireRotation.y += amount;
 		else
 			frontTireRotation.y = -MAX_FRONT_TIRE_TURNED;
+#else
+		frontTireRotation.y = -MAX_FRONT_TIRE_TURNED;
+#endif // USE_SLOW_ROTATING_TIRES 
 	}
-	if (carForwardSpeed != 0)
-		carRotation += glm::vec3(0, -amount, 0);
+	else
+	{
+		frontTireRotation.y = 0;
+	}
 }
 
 Transform Car::getChasisTransform() const
@@ -100,6 +110,16 @@ inline glm::vec3 Car::getTireRotation(const TirePosition & tirePosition) const
 
 void Car::move()
 {
-	forward = glm::vec3(glm::rotate(-tireRotation, glm::vec3(0, 1.0f, 0)) * glm::vec4(forward, 1.0f));
-	position += forward * carForwardSpeed;
+	if (carForwardSpeed > 0)
+	{
+		carRotation += glm::vec3(0, -tireRotation, 0);
+		forward = glm::vec3(glm::rotate(-tireRotation, glm::vec3(0, 1.0f, 0)) * glm::vec4(forward, 1.0f));
+		position += forward * carForwardSpeed;
+	}
+	else if (carForwardSpeed < 0)
+	{
+		carRotation += glm::vec3(0, tireRotation, 0);
+		forward = glm::vec3(glm::rotate(tireRotation, glm::vec3(0, 1.0f, 0)) * glm::vec4(forward, 1.0f));
+		position += forward * carForwardSpeed;
+	}
 }
